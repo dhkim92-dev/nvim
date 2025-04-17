@@ -1,7 +1,7 @@
 --require("CopilotChat").setup("config.copilot-chat")
 return {
   { "github/copilot.vim" },
-  {
+--[[   {
     "CopilotC-Nvim/CopilotChat.nvim",
     config = function()
       require("CopilotChat").setup(require("config.copilot-chat"))
@@ -31,6 +31,6 @@ return {
         },
       },
     },
-  }
+  } ]]
 }
 

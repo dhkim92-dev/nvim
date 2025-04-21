@@ -42,4 +42,4 @@ vim.keymap.set("v", "<leader>zo", ":CopilotChatOptimize<cr>")
  ]]--
 
 -- MCP Hub
-vim keymap.set("n", "<leader>mh", ":MCPHub<cr>")
+vim.keymap.set("n", "<leader>mh", ":MCPHub<cr>")

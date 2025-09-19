@@ -9,7 +9,8 @@ return {
     "pyright",
     "rust_analyzer",
     "jdtls",
-    "kotlin-lsp",
-    "tsserver",
+    "kotlin_lsp",
+    "ts_ls",
+    "dockerls"
   }
 }

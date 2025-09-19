@@ -71,10 +71,11 @@ require'lspconfig'.rust_analyzer.setup{
 
 lspconfig.ts_ls.setup{}
 lspconfig.pyright.setup{} 
+lspconfig.kotlin_lsp.setup{}
 
-lspconfig.kotlin_language_server.setup({
+--[[ lspconfig.kotlin_language_server.setup({
   cmd = { "kotlin-language-server" },
   filetypes = { "kotlin" },
   root_dir = lspconfig.util.root_pattern("settings.gradle.kts", "build.gradle.kts"),
   capabilities = require("cmp_nvim_lsp").default_capabilities(),
-})
+})  ]]

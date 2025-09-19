@@ -14,8 +14,16 @@ return {
       -- max_completion_tokens = 8192, -- Increase this to include reasoning tokens (for reasoning models)
       --reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
     -- },
-    provider = "copilot", -- or "openai" or "local" or "none"
-
+  providers = {
+    copilot = {
+        model = "claude-3.7-sonnet-thought",
+    }
+  },
+    behaviour = {
+      minimize_diff = false,
+      enable_claude_text_editor_tool_mode = true,
+      auto_suggestions = false,
+    }
   },
   -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
   build = "make",

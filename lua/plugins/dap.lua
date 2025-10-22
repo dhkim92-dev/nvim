@@ -49,7 +49,7 @@ return {
     dependencies = { "mfussenegger/nvim-dap", "rcarriga/nvim-dap-ui" },
     config = function()
       -- this config runs when a Java/Kotlin file is opened
-      local jdtls_ok, jdtls = pcall(require, "jdtls")
+      local jdtls_ok, jdtls = pcall(require, "$HOME/.local/share/nvim/mason/bin/jdtls")
       if not jdtls_ok then
         vim.notify("nvim-jdtls not available", vim.log.levels.WARN)
         return

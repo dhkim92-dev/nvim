@@ -15,11 +15,11 @@ return {
       --reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
     -- },
     provider = "copilot",
-    providers = {
-      copilot = {
-          model = "claude-3.7-sonnet-thought",
-      }
-    },
+--    providers = {
+--      copilot = {
+--          model = "claude-3.7-sonnet-thought",
+--      }
+--    },
     behaviour = {
       minimize_diff = false,
       enable_claude_text_editor_tool_mode = true,

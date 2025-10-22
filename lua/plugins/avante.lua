@@ -14,11 +14,12 @@ return {
       -- max_completion_tokens = 8192, -- Increase this to include reasoning tokens (for reasoning models)
       --reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
     -- },
-  providers = {
-    copilot = {
-        model = "claude-3.7-sonnet-thought",
-    }
-  },
+    provider = "copilot",
+    providers = {
+      copilot = {
+          model = "claude-3.7-sonnet-thought",
+      }
+    },
     behaviour = {
       minimize_diff = false,
       enable_claude_text_editor_tool_mode = true,

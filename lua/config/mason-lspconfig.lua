@@ -8,7 +8,8 @@ return {
     "jsonls",
     "pyright",
     "rust_analyzer",
-    "jdtls",
+--    "jdtls",
+    "ktlint",
     "kotlin_lsp",
     "ts_ls",
     "dockerls"

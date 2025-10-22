@@ -1,3 +1,3 @@
 return {
-  model = 'claude-3.7-sonnet'
+  model = 'GPT-4o', -- your desired model (or use gpt-4o, etc.)
 }

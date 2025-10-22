@@ -15,7 +15,6 @@ vim.opt.splitright = true
 vim.opt.mouse = "a"
 vim.opt.ttyfast = true
 
-
 vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {
     pattern = "*.py",
     callback = function() 

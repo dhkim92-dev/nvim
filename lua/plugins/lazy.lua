@@ -29,7 +29,11 @@ return {
       "nvim-tree/nvim-web-devicons",
     },
     config = function()
-      require("nvim-tree").setup {}
+      require("nvim-tree").setup {
+        renderer = {
+          group_empty = true
+        }
+      }
     end,
   },
   { "akinsho/bufferline.nvim", version = "*", dependencies = "nvim-tree/nvim-web-devicons" },

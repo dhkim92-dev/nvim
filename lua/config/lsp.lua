@@ -70,7 +70,7 @@ local function start_lsp(cmd, root_patterns, settings)
 end
 
 -- C/C++
-start_lsp({ "clangd" }, { ".git", "compile_commands.json" })
+start_lsp({ "clangd" }, {"compile_commands.json", "CMakeLists.txt" })
 
 -- Rust
 start_lsp({ "rust-analyzer" }, { "Cargo.toml" }, {
@@ -91,5 +91,5 @@ start_lsp({ "typescript-language-server", "--stdio" }, { "package.json", "tsconf
 start_lsp({ "pyright-langserver", "--stdio" }, { "pyproject.toml", "setup.py" })
 
 -- Kotlin (설치되어 있다면)
-start_lsp({ "kotlin-language-server" }, { "build.gradle.kts", "build.gradle" })
-
+-- start_lsp({ "kotlin-language-server" }, { "build.gradle.kts", "build.gradle" })
+start_lsp({"kotlin-lsp", "--stdio"}, { "build.gradle.kts", "build.gradle" })

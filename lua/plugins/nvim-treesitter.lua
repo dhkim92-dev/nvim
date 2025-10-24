@@ -16,6 +16,20 @@ return {
         ensure_installed = {
             'lua',
             'comment',
+            'java',
+            'typescript',
+            'kotlin',
+            'json',
+            'dockerfile',
+            'yaml',
+            'html',
+            'css',
+            'markdown',
+            'cpp',
+            'c',
+            'bash',
+            'python',
+            'rust'
         },
     },
 

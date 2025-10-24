@@ -109,10 +109,16 @@ return {
       -- require('dapui').close()
     end
 
+    dap.adapters.kotlin = {
+      type = "executable",
+      command = "kotlin-debug-adapter",
+      options = { auto_continue_if_many_stopped = false },
+  }
+
     dap.configurations.kotlin = {
         {
             name = "Debug Launch (2GB)";
-            type = 'kotlin-debug-adapter';
+            type = 'kotlin';
             request = 'launch';
             vmArgs = "" ..
               "-Xmx2g "
@@ -120,7 +126,7 @@ return {
         },
         {
             name = "Debug Attach (5005)";
-            type = 'kotlin-debug-adapter';
+            type = 'kotlin';
             request = 'attach';
             hostName = "127.0.0.1";
             port = 5005;

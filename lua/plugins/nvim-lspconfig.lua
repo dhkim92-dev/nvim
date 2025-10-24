@@ -26,6 +26,7 @@ return {
         'rust_analyzer',
         'dockerls',
         'jdtls',
+        'kotlin_lsp',
       }
     })
 

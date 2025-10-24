@@ -101,12 +101,12 @@ return {
 
     dap.listeners.before.event_terminated["dapui_config"] = function()
       -- Commented to prevent DAP UI from closing when unit tests finish
-      -- require('dapui').close()
+      require('dapui').close()
     end
 
     dap.listeners.before.event_exited["dapui_config"] = function()
       -- Commented to prevent DAP UI from closing when unit tests finish
-      -- require('dapui').close()
+      require('dapui').close()
     end
 
     dap.adapters.kotlin = {
@@ -130,6 +130,8 @@ return {
             request = 'attach';
             hostName = "127.0.0.1";
             port = 5005;
+            projectRoot = "${workspaceFolder}";
+            timeout = 5000;
         }
     }
 

@@ -1,16 +1,25 @@
-# dhkim92 nvim default configs
+# Dhkim92 Neovim setting
 
-# plugins
-- nvim-tree
-- lazy
+## Plugins
+- auto-template
+- avante
+- git-blame
+- mcp
+- comment-api
+- nvim-autopairs
 - nvim-cmp
-- jdtls
-- treesitter
-- telescope
-- numToStr/comment
-- rust-tools
-- mason
-- copilot
-- CopilotChat
-- catpuccin
+- nvim-dap
+- nvim-dap-ui
+- nvim-dap-virtual-text
+- nvim-jdtls
+- nvim-lspconfig
+- nvim-markdown
+- nvim-telescope
+- nvim-tree
+- nvim-treesitter
+- quickfixdd
+- rust
+- vim-commentary
+- vim-rest-console
+- vim-tmux-navigator
 - markdown-preview

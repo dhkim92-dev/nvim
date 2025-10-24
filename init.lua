@@ -1,27 +1,26 @@
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable",
+    lazypath,
+  })
+end
+
 vim.opt.rtp:prepend(lazypath)
+vim.g.mapleader = " "
 
 -- init.lua
+require("lazy").setup("plugins", {
+  change_detection = {
+    enable = true,
+    notify = false,
+  },
+});
 
 require("keymaps")
 require("options")
-require("lazy").setup("plugins");
---require("config")
-require("config.keymaps")
-require("config.options")
-require("config.cmake")
-require("config.mason")
-require("config.mason-lspconfig")
-require("config.cmp")
-require("config.lsp")
-require("config.lsp_rename")
-vim.keymap.set("n", "<leader>rr", function()
-  require("config.lsp_rename").smart_rename()
-end, { noremap = true, silent = false, desc = "Smart Rename (LSP then safe fallback)" })
-require("config.auto-template")
--- vim.lsp.enable("kotlin-lsp")
--- require("plugins")
---require("plugins.cmake")
---require("plugins.copilot")
---require("plugins.mason")

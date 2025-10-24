@@ -27,8 +27,28 @@ vim.keymap.set("n", "<leader>fm", function() require('telescope.builtin').treesi
 vim.keymap.set("n", "<leader>gb", ":GitBlameToggle<CR>")
 
 -- tree
-vim.keymap.set("n", "<leader>e", ":NvimTreeFindFileToggle<CR>")
+vim.keymap.set("n", "<leader>ee", ":NvimTreeFindFileToggle<CR>")
 vim.keymap.set("n", "<leader>ef", ":NvimTreeFindFile<CR>")
+-- resize tree window bigger
+vim.keymap.set("n", "<leader>e]", function()
+  local cur_width = vim.fn.winwidth(0)
+  local cu = (cur_width / vim.go.columns) * 100
+  cu = cu + 15
+  local ratio = cu / 100
+  local width = math.floor(vim.go.columns * ratio)
+  vim.cmd("NvimTreeResize +" .. width)
+end)
+
+-- resize tree window smaller
+vim.keymap.set("n", "<leader>e[", function()
+  local cur_width = vim.fn.winwidth(0)
+  local cu = (cur_width / vim.go.columns) * 100
+  cu = cu - 15
+  local ratio = cu / 100
+  local width = math.floor(vim.go.columns * ratio)
+  vim.cmd("NvimTreeResize -" .. width)
+end)
+
 
 -- quickfix
 vim.keymap.set("n", "<leader>qo", ":copen<CR>")

@@ -79,7 +79,6 @@ return {
     -- lua
     start_lsp({ "lua-language-server" }, { "lua" })
     -- C/C++
-    start_lsp({ "clangd" }, {"compile_commands.json", "CMakeLists.txt" })
 
     start_lsp({ "rust-analyzer" }, { "Cargo.toml" }, {
       ["rust-analyzer"] = {
@@ -103,6 +102,11 @@ return {
 
 
     start_lsp({ "pyright" }, { "requirements.txt", vim.fn.getcwd() })
+
+    start_lsp(
+      { "clangd", "--background-index", "--clang-tidy", "--header-insertion=never" },
+      { "compile_commands.json", "CMakeLists.txt" }
+    )
 
     local open_floating_preview = vim.lsp.util.open_floating_preview
     function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)

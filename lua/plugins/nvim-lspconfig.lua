@@ -60,7 +60,28 @@ return {
     local cmp_nvim_lsp = require('cmp_nvim_lsp')
     local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-    local function on_attach(client, bufnr) 
+    local function on_attach(client, bufnr)
+        -- Kotlin LSP에 대한 특별한 처리
+--[[         if client.name == "kotlin_lsp" then
+            -- 자동 포맷팅 설정 (파일 저장 시에만)
+            vim.api.nvim_create_autocmd("BufWritePre", {
+                buffer = bufnr,
+                callback = function()
+                    vim.lsp.buf.format({ async = false })
+                end,
+            })
+
+            -- LSP가 제공하는 completion 후 포맷팅
+            vim.api.nvim_create_autocmd("CompleteDone", {
+                buffer = bufnr,
+                callback = function()
+                    -- 잠시 지연 후 포맷팅 (import 추가 완료 대기)
+                    vim.defer_fn(function()
+                        vim.lsp.buf.format({ async = false })
+                    end, 200)
+                end,
+            })
+        end ]]
     end
 
 
@@ -88,7 +109,27 @@ return {
       },
     })
 
-    start_lsp({'kotlin-lsp'}, { "build.gradle.kts", "settings.gradle.kts" })
+    start_lsp({'kotlin-lsp'}, { "build.gradle.kts", "settings.gradle.kts" }, {
+      kotlin = {
+        imports = {
+          layoutType = "vertical",
+          insertBlankLine = true,
+          sortImports = true,
+          groupImports = true,
+          maxImportLinesBeforeCollapse = 5,
+        },
+        format = {
+          enable = true,
+          insertFinalNewline = true,
+        },
+        -- completion = {
+          -- snippets = "both",
+        -- },
+        codeGeneration = {
+          insertImports = true,
+        },
+      },
+    })
     vim.api.nvim_create_autocmd("VimLeavePre", {
       callback = function()
         local clients = vim.lsp.get_active_clients()

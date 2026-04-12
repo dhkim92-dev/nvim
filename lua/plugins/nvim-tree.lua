@@ -1,7 +1,9 @@
 return {
   'nvim-tree/nvim-tree.lua',
   dependencies = {
-      'nvim-tree/nvim-web-devicons',
+    'nvim-tree/nvim-web-devicons',
+    'folke/dressing.nvim',
+    "folke/noice.nvim",
   },
   opts = {
     actions = {
@@ -25,11 +27,18 @@ return {
     filters = {
       dotfiles = false
     },
+    git = {
+      enable = true,
+      ignore = false, -- Set to false to show git-ignored files/directories
+      timeout = 500,
+    },
   },
 
   config = function(_, opts)
-    vim.g.loaded_newrw = 1
-    vim.g.loaded_newrwPlugin = 1
+    vim.g.loaded_netrw = 1
+    vim.g.loaded_netrwPlugin = 1
+    pcall(require, 'dressing')
+    pcall(require, 'noice')
     require('nvim-tree').setup(opts)
   end,
 }

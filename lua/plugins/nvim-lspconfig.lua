@@ -101,13 +101,13 @@ return {
     start_lsp({ "lua-language-server" }, { "lua" })
     -- C/C++
 
-    start_lsp({ "rust-analyzer" }, { "Cargo.toml" }, {
+--[[     start_lsp({ "rust-analyzer" }, { "Cargo.toml" }, {
       ["rust-analyzer"] = {
         cargo = {
           allFeatures = true,
         },
       },
-    })
+    }) ]]
 
     start_lsp({'kotlin-lsp'}, { "build.gradle.kts", "settings.gradle.kts" }, {
       kotlin = {
@@ -144,10 +144,11 @@ return {
 
     start_lsp({ "pyright" }, { "requirements.txt", vim.fn.getcwd() })
 
-    start_lsp(
-      { "clangd", "--background-index", "--clang-tidy", "--header-insertion=never" },
-      { "compile_commands.json", "CMakeLists.txt" }
-    )
+    vim.lsp.start({
+      name = "clangd",
+      cmd = { "clangd", "--background-index", "--clang-tidy", "--header-insertion=never" },
+      root_dir = vim.fs.root(0, {"compile_commands.json", "CMakeLists.txt", "build/compile_commands.json"})
+  })
 
     local open_floating_preview = vim.lsp.util.open_floating_preview
     function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)

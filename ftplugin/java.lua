@@ -3,7 +3,7 @@ local home = vim.env.HOME -- Get the home directory
 
 local jdtls = require("jdtls")
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
-local workspace_dir = home .. "/jdtls-workspace/" .. project_name
+local workspace_dir = home .. "/.local/.tmp/jdtls-workspace/" .. project_name
 
 local system_os = ""
 
@@ -57,13 +57,10 @@ local config = {
   -- One dedicated LSP server & client will be started per unique root_dir
   -- root_dir = require("jdtls.setup").find_root({ ".git", "mvnw", "pom.xml", "build.gradle" }),
   root_dir = require("jdtls.setup").find_root({ "mvnw", "pom.xml", "build.gradle" }),
-
-  -- Here you can configure eclipse.jdt.ls specific settings
-  -- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
   settings = {
     java = {
       -- TODO Replace this with the absolute path to your main java version (JDTLS requires JDK 21 or higher)
-      home = "/usr/lib/jvm/java-21-openjdk-amd64",
+      home = "/Users/terrapin/Library/Java/JavaVirtualMachines/openjdk-24.0.1/Contents/Home",
       eclipse = {
         downloadSources = true,
       },
@@ -72,25 +69,17 @@ local config = {
         -- TODO Update this by adding any runtimes that you need to support your Java projects and removing any that you don't have installed
         -- The runtimes' name parameter needs to match a specific Java execution environments.  See https://github.com/eclipse-jdtls/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request and search "ExecutionEnvironment".
         runtimes = {
+          -- {
+            -- name = "OpenJDK 24",
+            -- path = "/Users/terrapin/Library/Java/JavaVirtualMachines/openjdk-24.0.1/Contents/Home",
+          -- },
           {
-            name = "JavaSE-1.8",
-            path = "/usr/lib/jvm/java-8-openjdk-amd64",
-          },
-          {
-            name = "JavaSE-11",
-            path = "/usr/lib/jvm/java-11-openjdk-amd64",
-          },
-          {
-            name = "JavaSE-17",
-            path = "/usr/lib/jvm/java-17-openjdk-amd64",
-          },
-          {
-            name = "JavaSE-19",
-            path = "/usr/lib/jvm/java-19-openjdk-amd64",
+            name = "JavaSE-24",
+            path = "/Users/terrapin/Library/Java/JavaVirtualMachines/openjdk-24/Contents/Home",
           },
           {
             name = "JavaSE-21",
-            path = "/usr/lib/jvm/java-21-openjdk-amd64",
+            path = "/opt/homebrew/Cellar/openjdk@21/21.0.10/libexec/openjdk.jdk/Contents/Home",
           },
         },
       },

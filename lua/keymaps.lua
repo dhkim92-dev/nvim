@@ -22,6 +22,7 @@ vim.keymap.set("n", "<leader>fs", require('telescope.builtin').current_buffer_fu
 vim.keymap.set("n", "<leader>fo", require('telescope.builtin').lsp_document_symbols, {})
 vim.keymap.set("n", "<leader>fi", require('telescope.builtin').lsp_incoming_calls, {})
 vim.keymap.set("n", "<leader>fm", function() require('telescope.builtin').treesitter({symbols= {'function', 'method'}}) end, {})
+vim.keymap.set("n", "<leader>gd", require('telescope.builtin').lsp_definitions,{})
 
 -- github
 vim.keymap.set("n", "<leader>gb", ":GitBlameToggle<CR>")
@@ -63,11 +64,11 @@ vim.keymap.set("n", "<leader>xr", ":call VrcQuery()<CR>")
 
 -- LSP
 vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition)
-vim.keymap.set("n", "<leader>gD", vim.lsp.buf.declaration)
+vim.keymap.set("n", "<leader>gc", vim.lsp.buf.declaration)
 vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references)
 vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation)
 vim.keymap.set("n", "<leader>rr", vim.lsp.buf.rename)
-vim.keymap.set("n", "<leader>ga", vim.lsp.buf.code_action)
+-- vim.keymap.set("n", "<leader>ga", vim.lsp.buf.code_action)
 vim.keymap.set("n", "<leader>gl", vim.diagnostic.open_float)
 vim.keymap.set("n", "<leader>gn", vim.diagnostic.goto_next)
 vim.keymap.set("n", "<leader>gp", vim.diagnostic.goto_prev)
@@ -120,3 +121,9 @@ vim.keymap.set("v", "<C-_>", ":lua require('Comment.api').toggle.blockwise(vim.f
 
 -- MCP Hub
 vim.keymap.set("n", "<leader>mh", ":MCPHub<cr>")
+
+-- Code Companion
+-- vim.keymap.set("n", "<leader>cc", ":CodeCompanionChat<cr>")
+vim.keymap.set("n", "<leader>aa", ":CodeCompanionChat Toggle<cr>")
+vim.keymap.set("n", "<leader>an", ":CodeCompanionChat<cr>")
+

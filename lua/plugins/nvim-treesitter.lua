@@ -6,7 +6,7 @@ return {
     },
     build = ':TSUpdate',
     opts = {
-        highlght = {
+        highlight = {
             enable = true,
         },
         indent = {

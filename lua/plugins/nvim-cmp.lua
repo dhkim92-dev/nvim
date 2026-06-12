@@ -43,16 +43,22 @@ return {
 
         -- Enter 개선 (줄바꿈 + 선택 시 확정)
         ["<CR>"] = cmp.mapping(function(fallback)
-          if cmp.visible() and cmp.get_selected_entry() then
-            cmp.confirm({
-              behavior = cmp.ConfirmBehavior.Insert,
-              select = false,
-            })
+          if cmp.visible() then
+            local entry = cmp.get_selected_entry()
+
+            if entry then
+              cmp.confirm({
+                behavior = cmp.ConfirmBehavior.Insert,
+                select = false,
+              })
+            else
+              cmp.abort()
+              fallback()
+            end
           else
             fallback()
           end
         end, { "i", "s" }),
-
         -- Tab 동작 (completion → snippet → fallback)
         ["<Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then

@@ -1,6 +1,6 @@
 return {
   'neovim/nvim-lspconfig',
-  event = 'VeryLazy',
+  event = { 'BufReadPre', 'BufNewFile' },
   dependencies = {
     { 'williamboman/mason.nvim' },
     { 'williamboman/mason-lspconfig.nvim' },
@@ -8,11 +8,93 @@ return {
     { 'j-hui/fidget.nvim', opts = {} },
     { 'folke/neodev.nvim', opts = {} },
   },
-  config = function ()
-    
+  config = function()
     require('mason').setup()
+
+    local mason_bin = vim.fn.stdpath('data') .. '/mason/bin'
+    local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+    local function on_attach(client, bufnr)
+      if client.name == 'kotlin_lsp' then
+        vim.api.nvim_create_autocmd('BufWritePre', {
+          buffer = bufnr,
+          callback = function()
+            vim.lsp.buf.format({ async = false })
+          end,
+        })
+      end
+    end
+
+    vim.lsp.config('*', {
+      capabilities = lsp_capabilities,
+      on_attach = on_attach,
+    })
+
+    vim.lsp.config('lua_ls', {
+      settings = {
+        Lua = {
+          diagnostics = {
+            globals = { 'vim' },
+          },
+        },
+      },
+    })
+
+    vim.lsp.config('clangd', {
+      cmd = {
+        'clangd',
+        '--background-index',
+        '--clang-tidy',
+        '--header-insertion=never',
+      },
+      root_markers = {
+        '.clangd',
+        'compile_commands.json',
+        'compile_flags.txt',
+        'CMakeLists.txt',
+        '.git',
+      },
+    })
+
+    vim.lsp.config('pyright', {
+      root_markers = {
+        'pyproject.toml',
+        'setup.py',
+        'setup.cfg',
+        'requirements.txt',
+        'Pipfile',
+        'pyrightconfig.json',
+        '.git',
+      },
+    })
+
+   --[[  
+    local function kotlin_root(bufnr, on_dir)
+      local fname = vim.api.nvim_buf_get_name(bufnr)
+      local dir = vim.fs.dirname(fname)
+
+      local root = vim.fs.root(dir, {
+        'settings.gradle.kts',
+        'settings.gradle',
+      })
+
+      if root then
+        on_dir(root)
+      end
+    end
+
+    vim.lsp.config('kotlin_lsp', {
+      cmd = { mason_bin .. '/intellij-server', '--stdio' },
+      filetypes = { 'kotlin' },
+      root_dir = kotlin_root,
+
+      settings = {
+        ['intellij.buildTool'] = 'gradle',
+        ['intellij.trace.server'] = 'verbose',
+      },
+     ]]})
+
     require('mason-lspconfig').setup({
-      -- Install these LSPs automatically
       ensure_installed = {
         'bashls',
         'lua_ls',
@@ -21,141 +103,39 @@ return {
         'html',
         'clangd',
         'jsonls',
-        -- 'cmake',
         'cssls',
         'rust_analyzer',
         'dockerls',
         'jdtls',
         'kotlin_lsp',
-      }
+      },
+      automatic_enable = {
+        exclude = {
+          'jdtls',
+          'kotlin_lsp',
+        },
+      },
     })
+
+    -- 반드시 config 정의 이후에 실행
+    -- vim.lsp.enable('kotlin_lsp')
 
     require('mason-tool-installer').setup({
       ensure_installed = {
         'java-debug-adapter',
         'java-test',
-        'kotlin-debug-adapter'
+        'kotlin-debug-adapter',
       },
       auto_update = true,
       run_on_start = true,
     })
 
-    vim.api.nvim_command("MasonToolsInstall")
-
-    local servers = require('mason-lspconfig').get_installed_servers()
-
-    local function start_lsp(cmd, root_patterns, settings)
-        local root_dir = vim.fs.root(0, root_patterns)
-        if not root_dir then return end
-        vim.lsp.start({
-            cmd = cmd,
-            root_dir = root_dir,
-            capabilities = capabilities,
-            on_attach = on_attach,
-            settings = settings or {},
-        })
-    end
-
-    -- local lspconfig = require('lspconfig')
-    local cmp_nvim_lsp = require('cmp_nvim_lsp')
-    local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-    local function on_attach(client, bufnr)
-        -- Kotlin LSP에 대한 특별한 처리
---[[         if client.name == "kotlin_lsp" then
-            -- 자동 포맷팅 설정 (파일 저장 시에만)
-            vim.api.nvim_create_autocmd("BufWritePre", {
-                buffer = bufnr,
-                callback = function()
-                    vim.lsp.buf.format({ async = false })
-                end,
-            })
-
-            -- LSP가 제공하는 completion 후 포맷팅
-            vim.api.nvim_create_autocmd("CompleteDone", {
-                buffer = bufnr,
-                callback = function()
-                    -- 잠시 지연 후 포맷팅 (import 추가 완료 대기)
-                    vim.defer_fn(function()
-                        vim.lsp.buf.format({ async = false })
-                    end, 200)
-                end,
-            })
-        end ]]
-    end
-
-
-
-    for _, server_name in ipairs(servers) do
-    -- jdtls는 제외
-        if server_name ~= 'jdtls' then
-            -- 기존 setup_handlers와 동일한 효과
-            vim.lsp.config(server_name, {
-                on_attach = on_attach,
-                capabilities = lsp_capabilities,
-            })
-        end
-    end
-
-    -- lua
-    start_lsp({ "lua-language-server" }, { "lua" })
-    -- C/C++
-
---[[     start_lsp({ "rust-analyzer" }, { "Cargo.toml" }, {
-      ["rust-analyzer"] = {
-        cargo = {
-          allFeatures = true,
-        },
-      },
-    }) ]]
-
-    start_lsp({'kotlin-lsp'}, { "build.gradle.kts", "settings.gradle.kts" }, {
-      kotlin = {
-        imports = {
-          layoutType = "vertical",
-          insertBlankLine = true,
-          sortImports = true,
-          groupImports = true,
-          maxImportLinesBeforeCollapse = 5,
-        },
-        format = {
-          enable = true,
-          insertFinalNewline = true,
-        },
-        -- completion = {
-          -- snippets = "both",
-        -- },
-        codeGeneration = {
-          insertImports = true,
-        },
-      },
-    })
-    vim.api.nvim_create_autocmd("VimLeavePre", {
-      callback = function()
-        local clients = vim.lsp.get_active_clients()
-        for _, client in pairs(clients) do
-          if client.name == "kotlin_lsp" then
-            client.stop()
-          end
-        end
-      end,
-    })
-
-
-    start_lsp({ "pyright" }, { "requirements.txt", vim.fn.getcwd() })
-
-    vim.lsp.start({
-      name = "clangd",
-      cmd = { "clangd", "--background-index", "--clang-tidy", "--header-insertion=never" },
-      root_dir = vim.fs.root(0, {"compile_commands.json", "CMakeLists.txt", "build/compile_commands.json"})
-  })
-
     local open_floating_preview = vim.lsp.util.open_floating_preview
+
     function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
       opts = opts or {}
-      opts.border = opts.border or "rounded" -- Set border to rounded
+      opts.border = opts.border or 'rounded'
       return open_floating_preview(contents, syntax, opts, ...)
     end
-
-  end
+  end,
 }

@@ -2,7 +2,7 @@ return {
   'nvim-tree/nvim-tree.lua',
   dependencies = {
     'nvim-tree/nvim-web-devicons',
-    'folke/dressing.nvim',
+    'folke/snacks.nvim',
     "folke/noice.nvim",
   },
   opts = {

@@ -1,12 +1,13 @@
 return {
-  -- https://github.com/windwp/nvim-autopairs
   'windwp/nvim-autopairs',
-  event = "InsertEnter",
+  event = 'InsertEnter',
   opts = {
-    check_ts = true, -- enable treesitter
+    check_ts = true,
+    map_cr = false,
+
     ts_config = {
-      lua = { "string" }, -- don't add pairs in lua string treesitter nodes
-      javascript = { "template_string" }, -- don't add pairs in javascript template_string
-    }
-  }
+      lua = { 'string' },
+      javascript = { 'template_string' },
+    },
+  },
 }

@@ -68,7 +68,6 @@ return {
       },
     })
 
-   --[[  
     local function kotlin_root(bufnr, on_dir)
       local fname = vim.api.nvim_buf_get_name(bufnr)
       local dir = vim.fs.dirname(fname)
@@ -83,8 +82,9 @@ return {
       end
     end
 
+    local local_bin = vim.fn.expand("~/.local/bin/kotlin-server-262.7569.0/bin")
     vim.lsp.config('kotlin_lsp', {
-      cmd = { mason_bin .. '/intellij-server', '--stdio' },
+      cmd = { local_bin .. '/intellij-server', '--stdio' },
       filetypes = { 'kotlin' },
       root_dir = kotlin_root,
 
@@ -92,7 +92,7 @@ return {
         ['intellij.buildTool'] = 'gradle',
         ['intellij.trace.server'] = 'verbose',
       },
-     ]]})
+    })
 
     require('mason-lspconfig').setup({
       ensure_installed = {
@@ -101,13 +101,12 @@ return {
         'ts_ls',
         'pyright',
         'html',
-        'clangd',
         'jsonls',
         'cssls',
         'rust_analyzer',
         'dockerls',
         'jdtls',
-        'kotlin_lsp',
+        --'kotlin_lsp'
       },
       automatic_enable = {
         exclude = {
@@ -118,7 +117,7 @@ return {
     })
 
     -- 반드시 config 정의 이후에 실행
-    -- vim.lsp.enable('kotlin_lsp')
+    vim.lsp.enable('kotlin_lsp')
 
     require('mason-tool-installer').setup({
       ensure_installed = {

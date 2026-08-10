@@ -87,6 +87,10 @@ return {
       cmd = { local_bin .. '/intellij-server', '--stdio' },
       filetypes = { 'kotlin' },
       root_dir = kotlin_root,
+      detached = false,
+      flags = {
+        exit_timeout = 1000,
+      },
 
       settings = {
         ['intellij.buildTool'] = 'gradle',

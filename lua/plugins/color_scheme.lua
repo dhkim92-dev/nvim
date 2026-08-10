@@ -10,6 +10,18 @@ return {
     })
 
     vim.cmd("colorscheme rose-pine")
+
+    -- Make the cursor stand out against the light `dawn` background.
+    local palette = require("rose-pine.palette")
+    vim.api.nvim_set_hl(0, "Cursor", { fg = palette.base, bg = palette.pine })
+    vim.api.nvim_set_hl(0, "lCursor", { fg = palette.base, bg = palette.pine })
+    vim.api.nvim_set_hl(0, "CursorIM", { fg = palette.base, bg = palette.pine })
+    vim.opt.guicursor = {
+      "n-v-c-sm:block-Cursor/lCursor",
+      "i-ci-ve:ver25-Cursor/lCursor",
+      "r-cr-o:hor20-Cursor/lCursor",
+      "t:block-Cursor/lCursor",
+    }
 end
 }--[[ return {
   -- https://github.com/catppuccin/nvim

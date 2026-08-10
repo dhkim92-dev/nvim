@@ -82,7 +82,7 @@ return {
       end
     end
 
-    local local_bin = vim.fn.expand("~/.local/bin/kotlin-server-262.7569.0/bin")
+    local local_bin = vim.fn.expand("~/.local/kotlin-server/bin")
     vim.lsp.config('kotlin_lsp', {
       cmd = { local_bin .. '/intellij-server', '--stdio' },
       filetypes = { 'kotlin' },

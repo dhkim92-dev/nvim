@@ -74,7 +74,6 @@ vim.keymap.set("n", "<leader>gl", vim.diagnostic.open_float)
 vim.keymap.set("n", "<leader>gn", vim.diagnostic.goto_next)
 vim.keymap.set("n", "<leader>gp", vim.diagnostic.goto_prev)
 vim.keymap.set("n", "<leader>tr", vim.lsp.buf.document_symbol)
-vim.keymap.set("i", "<C-Space>", vim.lsp.buf.completion)
 
 -- DEBUGGING
 vim.keymap.set("n", "<leader>bb", "<cmd>lua require'dap'.toggle_breakpoint()<CR>")
@@ -127,4 +126,3 @@ vim.keymap.set("n", "<leader>mh", ":MCPHub<cr>")
 -- vim.keymap.set("n", "<leader>cc", ":CodeCompanionChat<cr>")
 vim.keymap.set("n", "<leader>aa", ":CodeCompanionChat Toggle<cr>")
 vim.keymap.set("n", "<leader>an", ":CodeCompanionChat<cr>")
-

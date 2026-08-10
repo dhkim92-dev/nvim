@@ -3,22 +3,7 @@ return {
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-treesitter/nvim-treesitter",
-    -- Test with blink.cmp
-    {
-      "saghen/blink.cmp",
-      version = "1.*",
-      opts = {
-        keymap = {
-          preset = "enter",
-          ["<S-Tab>"] = { "select_prev", "fallback" },
-          ["<Tab>"] = { "select_next", "fallback" },
-        },
-        cmdline = { sources = { "cmdline" } },
-        sources = {
-          default = { "lsp", "path", "buffer", "codecompanion" },
-        },
-      },
-    },
+    "hrsh7th/nvim-cmp",
   },
 
   opts = {
@@ -27,6 +12,9 @@ return {
         adapter = {
           name = 'copilot',
           model = 'gpt-5-mini',
+        },
+        opts = {
+          completion_provider = "cmp",
         },
         keymaps = {
                   options = {
@@ -188,4 +176,3 @@ return {
     }
   }
 }
-

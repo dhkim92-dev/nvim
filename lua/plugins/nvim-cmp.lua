@@ -1,6 +1,8 @@
 return {
   "hrsh7th/nvim-cmp",
-  event = "InsertEnter",
+  -- CodeCompanion uses nvim-cmp as its completion provider, so cmp must be
+  -- available before CodeCompanion initializes.
+  lazy = false,
   dependencies = {
     "hrsh7th/cmp-nvim-lsp",
     "saadparwaiz1/cmp_luasnip",

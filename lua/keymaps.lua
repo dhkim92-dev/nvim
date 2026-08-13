@@ -3,6 +3,25 @@ vim.g.mapleader = " "
 vim.keymap.set("n", "j", "gj")
 vim.keymap.set("n", "k", "gk")
 
+-- Space + t + t: 터미널 투명도 토글
+vim.keymap.set("n", "<leader>tt", function()
+  vim.g.transparent_background = not vim.g.transparent_background
+
+  -- 현재 상태로 GitHub 테마를 다시 적용해 투명도를 즉시 반영합니다.
+  require("github-theme").setup({
+    options = {
+      transparent = vim.g.transparent_background,
+    },
+  })
+  vim.cmd("colorscheme github_dark_dimmed")
+
+  vim.notify(
+    "터미널 투명도: " .. (vim.g.transparent_background and "켜짐" or "꺼짐"),
+    vim.log.levels.INFO,
+    { title = "Neovim" }
+  )
+end, { desc = "터미널 투명도 토글" })
+
 -- buffer line
 vim.keymap.set("n", "<leader>n", ":bn<CR>")
 vim.keymap.set("n", "<leader>p", ":bp<CR>")

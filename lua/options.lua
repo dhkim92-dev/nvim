@@ -10,7 +10,7 @@ vim.opt.ignorecase = true -- 검색 시 대소문자 구분 x
 vim.opt.smartcase = true 
 vim.opt.hlsearch = false -- 검색 결과 전체 하이라이팅 X
 vim.opt.incsearch = true -- 점진적 하이라이팅
--- vim.o.termguicolors = true  -- enable true color support
+vim.opt.termguicolors = true -- enable true color support
 vim.opt.splitright = true
 vim.opt.mouse = "a"
 vim.opt.ttyfast = true
@@ -39,5 +39,4 @@ vim.api.nvim_create_autocmd("BufReadPost", {
    	end
    end
 })
-
 

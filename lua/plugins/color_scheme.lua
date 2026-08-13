@@ -1,21 +1,22 @@
 return {
-  "rose-pine/neovim",
-  name = "rose-pine",
+  "projekt0n/github-nvim-theme",
+  name = "github-theme",
+  lazy = false,
+  priority = 1000,
   config = function()
-    require("rose-pine").setup({
-      variant = "dawn", -- main, moon, dawn
-      dark_variant = "dawn",
-      dim_inactive_windows = false,
-      extend_background_behind_borders = true,
+    -- 투명 배경 기본값입니다. false로 바꾸면 시작할 때 투명 배경을 끕니다.
+    vim.g.transparent_background = true
+
+    require("github-theme").setup({
+      options = {
+        transparent = vim.g.transparent_background,
+        terminal_colors = true,
+        dim_inactive = false,
+      },
     })
 
-    vim.cmd("colorscheme rose-pine")
+    vim.cmd("colorscheme github_dark_dimmed")
 
-    -- Make the cursor stand out against the light `dawn` background.
-    local palette = require("rose-pine.palette")
-    vim.api.nvim_set_hl(0, "Cursor", { fg = palette.base, bg = palette.pine })
-    vim.api.nvim_set_hl(0, "lCursor", { fg = palette.base, bg = palette.pine })
-    vim.api.nvim_set_hl(0, "CursorIM", { fg = palette.base, bg = palette.pine })
     vim.opt.guicursor = {
       "n-v-c-sm:block-Cursor/lCursor",
       "i-ci-ve:ver25-Cursor/lCursor",

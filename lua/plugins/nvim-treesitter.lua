@@ -30,7 +30,8 @@ return {
             'c',
             'bash',
             'python',
-            'rust'
+            'rust',
+            'mermaid'
         },
     },
 

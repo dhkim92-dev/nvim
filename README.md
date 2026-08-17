@@ -23,3 +23,4 @@
 - vim-rest-console
 - vim-tmux-navigator
 - markdown-preview
+- mermaid.nvim

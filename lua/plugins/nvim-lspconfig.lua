@@ -55,6 +55,7 @@ return {
         '.git',
       },
     })
+    vim.lsp.enable('clangd')
 
     vim.lsp.config('pyright', {
       root_markers = {
